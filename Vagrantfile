@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-default_box = "generic/opensuse15"
+default_box = "opensuse/Leap-15.2.x86_64"
+default_version = "15.2.31.247"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -16,8 +17,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "master" do |master|
     master.vm.box = default_box
+    master.vm.box_version = default_version
     master.vm.hostname = "master"
-    master.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
+    master.vm.synced_folder ".", "/home/vagrant/udaconnect"
+    master.vm.network 'private_network', ip: "192.168.56.3",  virtualbox__intnet: true
     master.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
     master.vm.network "forwarded_port", guest: 22, host: 2000 # Master Node SSH
     master.vm.network "forwarded_port", guest: 6443, host: 6443 # API Access
