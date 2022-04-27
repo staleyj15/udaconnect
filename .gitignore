@@ -1,3 +1,8 @@
+
+# local set up files
+*run_db_command_local.sh
+*local_setup.py
+
 .idea/
 *.pyc
 py3/

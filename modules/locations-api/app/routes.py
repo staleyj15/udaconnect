@@ -1,4 +1,4 @@
-from src import register_routes as attach_udaconnect
+from .src import register_routes as attach_udaconnect
 
 
 def register_routes(api, app, root="api"):
