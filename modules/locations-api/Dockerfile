@@ -10,3 +10,6 @@ EXPOSE 5000
 
 COPY . .
 CMD ["flask", "run", "--host", "0.0.0.0"]
+
+# command to run and publish port 5001
+# docker run -d -p 5001:5000/tcp --name udaconnect-locations --env-file ../../local-env.list jstaley6/udaconnect-locations:0.0

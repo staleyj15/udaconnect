@@ -2,6 +2,7 @@
 # local set up files
 *run_db_command_local.sh
 *local_setup.py
+*local-env.list
 
 .idea/
 *.pyc
