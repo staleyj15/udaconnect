@@ -3,7 +3,7 @@ name: Udaconnect Locations API - Package with Docker
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
 
 jobs:
   docker:
