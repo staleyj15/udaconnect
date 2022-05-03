@@ -6,7 +6,7 @@ metadata:
   name: udaconnect-persons-api
 spec:
   ports:
-  - name: flask
+  - name: flask_default
     port: 5000
     targetPort: 5000
     nodePort: 30001
@@ -31,7 +31,7 @@ spec:
         service: persons-api
     spec:
       containers:
-      - image: jstaley6/udaconnect-persons:v1.0
+      - image: jstaley6/udaconnect-persons:latest
         name: udaconnect-persons-api
         imagePullPolicy: Always
         env:

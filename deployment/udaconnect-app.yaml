@@ -6,7 +6,7 @@ metadata:
   name: udaconnect-app
 spec:
   ports:
-  - name: "3000"
+  - name: "npm_default"
     port: 3000
     targetPort: 3000
     nodePort: 30000
@@ -21,7 +21,7 @@ metadata:
     service: udaconnect-app
   name: udaconnect-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       service: udaconnect-app
@@ -31,7 +31,7 @@ spec:
         service: udaconnect-app
     spec:
       containers:
-      - image: udacity/nd064-udaconnect-app:latest
+      - image: jstaley6/udaconnect-frontend:latest
         name: udaconnect-app
         imagePullPolicy: Always
         resources:
