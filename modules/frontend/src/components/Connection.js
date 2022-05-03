@@ -24,6 +24,9 @@ class Connection extends Component {
       fetch(
         `http://localhost:30001/api/persons/${personId}/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5`
       )
+      fetch(
+        `http://localhost:30001/api/persons/${personId}/connection`
+      )
         .then((response) => response.json())
         .then((connections) =>
           this.setState({
