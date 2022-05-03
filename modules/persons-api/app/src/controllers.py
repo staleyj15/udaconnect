@@ -1,3 +1,6 @@
+import logging
+import sys
+
 from datetime import datetime
 from .models import Connection, Person
 from .schemas import (
@@ -12,6 +15,14 @@ from typing import Optional, List
 
 DATE_FORMAT = "%Y-%m-%d"
 api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
+
+# set up logger
+logger = logging.getLogger("persons-api.controllers")
+logger.propagate = False
+formatter = logging.Formatter('%(levelname)s:%(name)s – – [%(asctime)s], "%(message)s"', datefmt='%Y-%m-%d, %H:%M:%S')
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setFormatter(formatter)
+logger.addHandler(stdout_handler)
 
 
 @api.route("/persons")
@@ -45,11 +56,18 @@ class PersonResource(Resource):
 class ConnectionDataResource(Resource):
     @responds(schema=ConnectionSchema, many=True)
     def get(self, person_id) -> ConnectionSchema:
-        start_date: datetime = datetime.strptime(
-            request.args["start_date"], DATE_FORMAT
+        start_date: Optional[datetime] = datetime.strptime(
+            request.args.get("start_date", '1999-01-01'), DATE_FORMAT
         )
-        end_date: datetime = datetime.strptime(request.args["end_date"], DATE_FORMAT)
+        end_date: Optional[datetime] = datetime.strptime(
+            request.args.get("end_date", datetime.now().strftime('%Y-%m-%d')), DATE_FORMAT
+        )
         distance: Optional[int] = request.args.get("distance", 5)
+
+        if not request.args.get("start_date"):
+            logger.warning('no start_date passed, using default value 1999-01-01')
+        if not request.args.get("end_date"):
+            logger.warning(f"no end_date passed, using default value {datetime.now().strftime('%Y-%m-%d')}")
 
         results = ConnectionService.find_contacts(
             person_id=person_id,

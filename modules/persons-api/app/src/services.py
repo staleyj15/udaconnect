@@ -23,6 +23,7 @@ class ConnectionService:
         large datasets. This is by design: what are some ways or techniques to help make this data integrate more
         smoothly for a better user experience for API consumers?
         """
+
         locations: List = db.session.query(Location).filter(
             Location.person_id == person_id
         ).filter(Location.creation_time < end_date).filter(
