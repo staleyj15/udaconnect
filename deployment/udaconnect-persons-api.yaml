@@ -6,7 +6,7 @@ metadata:
   name: udaconnect-persons-api
 spec:
   ports:
-  - name: flask_default
+  - name: flask-default
     port: 5000
     targetPort: 5000
     nodePort: 30001

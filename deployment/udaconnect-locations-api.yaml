@@ -6,7 +6,7 @@ metadata:
   name: udaconnect-locations-api
 spec:
   ports:
-  - name: flask_default
+  - name: flask-default
     port: 5002
     targetPort: 5000
     nodePort: 30002
