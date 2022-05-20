@@ -9,6 +9,7 @@ spec:
   storageClassName: manual
   capacity:
     storage: 256Mi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
   hostPath:

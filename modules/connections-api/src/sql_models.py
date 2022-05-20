@@ -3,7 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 
-from app import db  # noqa
+from sqlalchemy.ext.declarative import declarative_base
+from app import metadata  # noqa
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import to_shape
 from shapely.geometry.point import Point
@@ -12,7 +13,10 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.ext.hybrid import hybrid_property
 
 
-class Person(db.Model):
+BaseModel = declarative_base(metadata)
+
+
+class Person(BaseModel):
     __tablename__ = "person"
 
     id = Column(Integer, primary_key=True)
@@ -21,7 +25,7 @@ class Person(db.Model):
     company_name = Column(String, nullable=False)
 
 
-class Location(db.Model):
+class Location(BaseModel):
     __tablename__ = "location"
 
     id = Column(BigInteger, primary_key=True)
@@ -50,12 +54,12 @@ class Location(db.Model):
     @hybrid_property
     def longitude(self) -> str:
         coord_text = self.wkt_shape
-        return coord_text[coord_text.find(" ") + 1 : coord_text.find(")")]
+        return coord_text[coord_text.find(" ") + 1: coord_text.find(")")]
 
     @hybrid_property
     def latitude(self) -> str:
         coord_text = self.wkt_shape
-        return coord_text[coord_text.find("(") + 1 : coord_text.find(" ")]
+        return coord_text[coord_text.find("(") + 1: coord_text.find(" ")]
 
 
 @dataclass
