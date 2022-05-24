@@ -10,7 +10,7 @@ Sample implementation of a writer that can be used to write messages to gRPC.
 
 
 def for_testing_only():
-    channel = grpc.insecure_channel("localhost:5005")
+    channel = grpc.insecure_channel("localhost:5006")
     stub = connection_pb2_grpc.ConnectionServiceStub(channel)
 
     def str2dt(strdt: str) -> dt.datetime:
