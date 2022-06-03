@@ -16,3 +16,7 @@ EXPOSE 3000
 
 CMD ["npm", "start"]
 
+# run and publish to local port 3000
+# docker run -d -p 3000:3000/tcp --name udaconnect-frontend jstaley6/udaconnect-frontend:v2.0
+
+

@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
+
+const { ConnectionServiceClient } = require('./connection_grpc_web_pb');
+const { ConnectionRequest, ConnectionResponse } = require('./connection_pb.js');
+var client = new ConnectionServiceClient('http://localhost:9090', null, null);
+
 
 class Connection extends Component {
   constructor(props) {
@@ -20,22 +26,47 @@ class Connection extends Component {
 
   getConnections = (personId) => {
     if (personId) {
-      // TODO: endpoint should be abstracted into a config variable
-      fetch(
-        `http://localhost:30001/api/persons/${personId}/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5`
-      )
-      fetch(
-        `http://localhost:30001/api/persons/${personId}/connection`
-      )
-        .then((response) => response.json())
-        .then((connections) =>
-          this.setState({
-            connections: connections,
-            personId: this.state.personId,
-          })
-        );
-    }
-  };
+      const request = new ConnectionRequest();
+      // set request parameters
+      const start_date = new Timestamp();
+      const end_date = new Timestamp();
+      start_date.fromDate(new Date('2020-01-01'));
+      end_date.fromDate(new Date('2020-12-30'));
+      request.setPersonId(personId);
+      request.setMeters(5);
+      request.setStartDate(start_date);
+      request.setEndDate(end_date);
+      // make request
+      client.get(request, {}, (err, response: ConnectionResponse) => {
+        if (response == null) {
+            console.log(err)
+        }else {
+            var conn_list = response.getConnectionsList()
+            console.log(conn_list)
+            this.setState({
+                connections: conn_list,
+                personId: this.state.personId,
+            })
+        }
+       });
+      }
+    };
+//      // TODO: endpoint should be abstracted into a config variable
+//      fetch(
+//        `http://localhost:30001/api/persons/${personId}/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5`
+//      )
+//      fetch(
+//        `http://localhost:30001/api/persons/${personId}/connection`
+//      )
+//        .then((response) => response.json())
+//        .then((connections) =>
+//          this.setState({
+//            connections: connections,
+//            personId: this.state.personId,
+//          })
+//        );
+//    }
+//  };
 
   render() {
     return (

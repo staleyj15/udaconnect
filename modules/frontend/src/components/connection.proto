@@ -1,0 +1,51 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+message PersonMessage {
+  int32 id = 1; // person id
+  string first_name = 2;
+  string last_name = 3;
+  string company_name = 4;
+}
+
+message LocationMessage {
+  int64 id = 1; // location id
+  int32 person_id = 2; // person id
+  string longitude = 3;
+  string latitude = 4;
+  google.protobuf.Timestamp creation_time = 5;
+}
+
+message ConnectionMessage {
+  LocationMessage location = 1;
+  PersonMessage person = 2;
+}
+
+//message ConnectionRequest {
+//  int32 person_id = 1;
+//  string latitude = 2;
+//  string longitude = 3;
+//  int32 meters = 4;
+//  string start_date = 5;
+//  string end_date = 6;
+//}
+
+message ConnectionRequest {
+  int32 person_id = 1;
+  int32 meters = 2;
+  google.protobuf.Timestamp start_date = 3;
+  google.protobuf.Timestamp end_date = 4;
+}
+
+message ConnectionResult {
+  repeated ConnectionMessage connections = 1 ;
+}
+
+message Empty {
+
+}
+
+service ConnectionService {
+    //rpc Create(OrderMessage) returns (OrderMessage);
+    rpc Get(ConnectionRequest) returns (ConnectionResult);
+}

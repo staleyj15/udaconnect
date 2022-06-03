@@ -11,4 +11,4 @@ COPY . .
 CMD ["python", "app.py"]
 
 # command to run and publish port 5006
-# docker run -d -p 5006:5005/tcp --name udaconnect-connections --env-file ../../local-env.list jstaley6/udaconnect-connections:v0.0
+# docker run -d -p 5006:5005/tcp --name udaconnect-connections --env-file ../../local-env.list jstaley6/udaconnect-connections:v1.0

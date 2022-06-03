@@ -3,7 +3,11 @@ from datetime import datetime, timedelta
 from typing import Dict, List
 from app import engine, session # noqa
 from . import sql_models as sql
+import logging
 from sqlalchemy.sql import text
+
+logger = logging.getLogger('app.business_logic')
+logger.propagate = False
 
 
 class BusinessLogic:
@@ -14,6 +18,7 @@ class BusinessLogic:
     @staticmethod
     def query_all_locations_for_person(person_id: int, start_date: datetime, end_date: datetime) -> List[sql.Location]:
         """Get list of places person has been between start date and end date."""
+        logger.info(f'query_all_locations_for_person() called with parameters person_id={person_id}, start_date={start_date}, end_date={end_date}')
         locations = session.query(
             sql.Location
         ).filter(
