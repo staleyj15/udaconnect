@@ -3,6 +3,7 @@ from datetime import datetime
 from .models import Connection, Location, Person
 from .schemas import (
     ConnectionSchema,
+    NewLocationSchema,
     LocationSchema,
     PersonSchema,
 )
@@ -11,6 +12,7 @@ from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
+
 
 DATE_FORMAT = "%Y-%m-%d"
 
@@ -22,12 +24,13 @@ api = Namespace("UdaConnect", description="Connections via geolocation.")  # noq
 
 @api.route("/locations")
 class LocationsResource(Resource):
-    @accepts(schema=LocationSchema)
-    @responds(schema=LocationSchema)
+    @accepts(schema=NewLocationSchema)
+    @responds(status_code=201)
     def post(self) -> Location:
-        request.get_json()
-        location: Location = LocationService.create(request.get_json())
-        return location
+        request_body = request.json
+        LocationService.create(location=request_body)
+        # location: Location = LocationService.return_request_as_response(location=request_body)
+        # return location
 
     @responds(schema=LocationSchema, many=True)
     def get(self) -> List[Location]:

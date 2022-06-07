@@ -1,0 +1,16 @@
+version: '1.0'
+
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    environment:
+      ALLOW_PLAINTEXT_LISTENER=yes
+      KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 //localhost:2181
+
+  myapp:
+    image: 'jstaley6/udaconnect-locations:latest'

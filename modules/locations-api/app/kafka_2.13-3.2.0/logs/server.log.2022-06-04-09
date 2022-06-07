@@ -1,0 +1,4 @@
+[2022-06-04 09:16:47,440] INFO [GroupCoordinator 0]: Member console-consumer-abb6e060-1504-4b1c-9c40-9623ae896317 in group console-consumer-5080 has failed, removing it from the group (kafka.coordinator.group.GroupCoordinator)
+[2022-06-04 09:16:47,531] INFO [GroupCoordinator 0]: Preparing to rebalance group console-consumer-5080 in state PreparingRebalance with old generation 1 (__consumer_offsets-2) (reason: removing member console-consumer-abb6e060-1504-4b1c-9c40-9623ae896317 on heartbeat expiration) (kafka.coordinator.group.GroupCoordinator)
+[2022-06-04 09:16:47,555] INFO [GroupCoordinator 0]: Group console-consumer-5080 with generation 2 is now empty (__consumer_offsets-2) (kafka.coordinator.group.GroupCoordinator)
+[2022-06-04 09:18:37,993] INFO [GroupMetadataManager brokerId=0] Group console-consumer-5080 transitioned to Dead in generation 2 (kafka.coordinator.group.GroupMetadataManager)
