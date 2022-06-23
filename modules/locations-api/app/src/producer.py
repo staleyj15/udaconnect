@@ -15,3 +15,4 @@ class LocationProducer:
         kafka_producer.send(TOPIC_NAME, kafka_data)
         kafka_producer.flush()
         logger.info(f'published to topic={TOPIC_NAME}:\t{location}')
+

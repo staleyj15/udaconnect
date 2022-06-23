@@ -25,6 +25,7 @@ class LocationConsumer:
             try:
                 db.session.add(new_location)
                 db.session.commit()
+                logger.info(f'Added new location to database: {message}')
             except Exception as e:
                 print(f'{e}\nUnable to insert {message.value} into Location table')
 
